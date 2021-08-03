@@ -1,0 +1,9 @@
+---
+title: "Event sourcing with Akka Persistence"
+date: "2019-06-07"
+---
+
+In one of our projects at the Port of Rotterdam we do a lot of stream processing where we require intermediate state. We are using Event Sourcing with Akka Persistence. It allows us to create robust stateful streaming applications that can maintain state between application restarts. We were struggling a bit writing our command handlers since we do a bunch of asynchronous operations. Akka Persistence does not allow you to handle command asynchronously which means you need to deal with this yourself. Let us explore the problem in a simplified event sourcing application.
+Event Sourcing
+
+Let us create a simple implementation of an event sourcing system. A simple calculator that can add and subtract values. First we define our state, which is simply an integer value:
