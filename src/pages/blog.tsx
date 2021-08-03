@@ -31,7 +31,8 @@ const BlogPage = ({ data }) => {
   const classes = useStyles();
 
   const processedPosts = data.allMdx.nodes.map((node) => ({
-    id: node.id,
+    ...node,
+    date: node.frontmatter.date,
     title: node.frontmatter.title.substr(0, 30),
     description:
       "Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",
@@ -43,6 +44,7 @@ const BlogPage = ({ data }) => {
 
   const mainFeaturedPost = processedPosts[0];
   const featuredPosts = processedPosts.slice(1, 3);
+  const olderPosts = processedPosts.slice(3);
 
   return (
     <Layout pageTitle="My Blog Posts">
@@ -61,11 +63,12 @@ const BlogPage = ({ data }) => {
             From the firehose
           </Typography>
           <Divider />
-          {data.allMdx.nodes.slice(3).map((node) => (
-            <div key={node.id}>
-              <Typography variant="h4">{node.frontmatter.title}</Typography>
-              <Typography>Posted: {node.frontmatter.date}</Typography>
-              <MDXRenderer>{node.body}</MDXRenderer>
+          {olderPosts.map((node) => (
+            <div key={node.id} style={{ marginTop: "2rem" }}>
+              <Typography variant="h4">{node.title}</Typography>
+              <Typography>{node.date} by ...</Typography>
+              {/* <MDXRenderer>{node.body}</MDXRenderer> */}
+              <div>{node.excerpt}</div>
             </div>
           ))}
         </Grid>
@@ -127,6 +130,7 @@ export const query = graphql`
           title
         }
         id
+        excerpt(truncate: true)
         body
       }
     }
