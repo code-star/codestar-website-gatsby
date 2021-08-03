@@ -1,0 +1,45 @@
+---
+title: "Apollo Client in Practice"
+date: "2019-05-02"
+---
+
+Some time ago I joined a team that is working on a search application. The application takes search terms and displays the results in a table with potentially dozens of columns and hundreds of rows, even before pagination. It is implemented in React and uses Apollo for GraphQL calls. I was surprised to find it noticeably slow when a lot of search results were retrieved. React is well-known for leveraging virtual DOM to optimize performance and GraphQL should even be able to add caching to further optimize performance on the side of network requests.
+
+Looking into the performance tab of Chrome dev tools lead me to believe the performance problems were caused by computations in the bottom components (e.g. formatting in cells). Because there are so many and they are re-rendered quite often, this approach is quite intensive on resources.
+
+Besides that, the application had obvious state synchronization problems. When moving between views it was not maintaining the same state of selected rows. Even though Redux was used to store application state and communicate it between components, it was not used consistently. There were still plenty of React class components that stored some parts of the state locally.
+
+To summarize, there were two issues that needed to be solved:
+
+    Poor performance due to excessive re-rendering
+    Loss of application state when navigating views due to decentralized state stores
+
+Since both issues were caused by (a lack of) architecture, we redesigned the structure of the application. The original implementation used:
+
+    Apollo Client as a GraphQL client
+    Axios as an HTTP client for REST endpoints
+    Redux and React local state to manage the state between components
+
+It used Apollo, but by manually firing client.query() and after processing the response, it stored the result in the Redux store.
+Fixing application state with Apollo Local State
+
+When restructuring the application, Apollo Client was updated to 2.5. This version has a built-in local state manager (formerly apollo-link-state) and it supports REST calls with the apollo-link-rest plugin. The apollo-boost package contains the client and several useful plugins. Adopting these means that both Redux and Axios can be removed and Apollo will be used as a single source of truth. If there is a single store for the data, there is no need for synchronization and with that one of the issues is solved.
+
+The way we used Apollo Client was also updated, to create a better separation of UI and data. Instead of using client.query() directly in the component lifecycle methods, components are split into a presentational component and enhanced with the graphql() HOC to add data from remote (i.e. GraphQL back-end) or local fields. Both utilize the Apollo cache, which fulfills multiple functions, one of them an application local state store.
+
+Example of wrapping a component in a Query HOC:
+...
+
+Next steps
+
+Apollo is excellent for merging data from multiple sources (in this case GraphQL, REST, local state and cache) and functions as a “single source of truth” which should solve the state synchronization problems. The local fields that Apollo uses in its local state manager can derive data, moving expensive operations from component render functions to resolvers in its application level cache. Although the issues mentioned in the introduction are now dealt with, we did encounter plenty of other issues I may dive into later. However, these are some things that you might want to take into account when working with Apollo Client:
+
+Outside of restructuring the application, we improved performance with react-virtualized which speeds up rendering large tables. Apollo also offers GraphQL pagination. We did not use that, as we have to do our pagination on the client side to keep the sorting feature of react-virtualized in tact.
+
+Apollo Client offers support for TypeScript, it is even possible to generate queries and typed React components from GraphQL schemas with @graphql-codegen/cli.
+
+Also definitely use the JS GraphQL IntelliJ Plugin because it will not only auto complete queries, but it will help you think about (client side) schema’s.
+
+When the Query component mounts, it creates an observable that subscribes to the query in the query prop. This encourages reactive behavior like RxJS (which can also be used as a state store). However, it seems that Apollo offers much less fine-grained control over the observables than what RxJS provides. And considering observables, Apollo Client effortlessly scales to web sockets!
+
+Are you looking for inspiration on how Apollo client can be applied? I can recommend this talk by Uri Goldshtein and this introduction to Apollo state management by Sara Vieira.

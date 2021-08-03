@@ -1,10 +1,25 @@
 import * as React from "react";
-import { Link, useStaticQuery, graphql } from "gatsby";
-import { CssBaseline, ThemeProvider, Typography } from "@material-ui/core";
+import { useStaticQuery, graphql } from "gatsby";
+import {
+  Container,
+  CssBaseline,
+  ThemeProvider,
+} from "@material-ui/core";
 import theme from "../theme";
+import Header from "./molecules/Header/Header";
 
-// Example: https://github.com/hupe1980/gatsby-theme-material-ui/blob/master/packages/gatsby-theme-material-ui-top-layout/src/wrap-with-provider.js
-// TODO add wrap-with-provider (also see gatsby-browser.js), add helmet
+const sections = [
+  { title: "Home", url: "/" },
+  { title: "Blog", url: "/blog" },
+  { title: "About", url: "/about" },
+  { title: "Business", url: "#" },
+  { title: "Politics", url: "#" },
+  { title: "Opinion", url: "#" },
+  { title: "Science", url: "#" },
+  { title: "Health", url: "#" },
+  { title: "Style", url: "#" },
+  { title: "Travel", url: "#" },
+];
 
 const Layout = ({ pageTitle, children }) => {
   const data = useStaticQuery(graphql`
@@ -17,31 +32,22 @@ const Layout = ({ pageTitle, children }) => {
     }
   `);
 
+  const title = `${pageTitle} | ${data.site.siteMetadata.title}`;
+
   return (
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Typography variant="h3">
-          {pageTitle} | {data.site.siteMetadata.title}
-        </Typography>
+        <Container maxWidth="lg">
+          <Header title={title} sections={sections} />
 
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/blog">Blog</Link>
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-          </ul>
-        </nav>
-        <main>
-          <h1>{pageTitle}</h1>
           {children}
-        </main>
+        </Container>
+        {/* TODO Get footer from https://github.com/mui-org/material-ui/blob/master/docs/src/pages/getting-started/templates/blog/Blog.js */}
+        {/* <Footer
+          title="Footer"
+          description="Something here to give the footer a purpose!"
+        /> */}
       </ThemeProvider>
     </>
   );
