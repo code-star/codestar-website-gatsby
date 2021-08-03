@@ -1,7 +1,13 @@
 import * as React from "react";
 import Layout from "../components/layout";
 import { graphql } from "gatsby";
-import { Card, Grid, makeStyles, Typography } from "@material-ui/core";
+import {
+  Divider,
+  Grid,
+  makeStyles,
+  Paper,
+  Typography,
+} from "@material-ui/core";
 import { MDXRenderer } from "gatsby-plugin-mdx";
 import MainFeaturedPost from "../components/molecules/MainFeaturedPost/MainFeaturedPost";
 import FeaturedPost from "../components/molecules/FeaturedPost/FeaturedPost";
@@ -10,6 +16,13 @@ import FeaturedPost from "../components/molecules/FeaturedPost/FeaturedPost";
 // TODO add wrap-with-provider (also see gatsby-browser.js), add helmet
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
+    marginTop: theme.spacing(3),
+  },
+  sidebarAboutBox: {
+    padding: theme.spacing(2),
+    backgroundColor: theme.palette.grey[600],
+  },
+  sidebarSection: {
     marginTop: theme.spacing(3),
   },
 }));
@@ -29,7 +42,7 @@ const BlogPage = ({ data }) => {
   }));
 
   const mainFeaturedPost = processedPosts[0];
-  const featuredPosts = processedPosts.slice(1,3);
+  const featuredPosts = processedPosts.slice(1, 3);
 
   return (
     <Layout pageTitle="My Blog Posts">
@@ -42,21 +55,64 @@ const BlogPage = ({ data }) => {
       </Grid>
       <Grid container spacing={5} className={classes.mainGrid}>
         {/* <Main title="From the firehose" posts={posts} /> */}
-        <main>
-          {data.allMdx.nodes.map((node) => (
-            <Card key={node.id}>
+
+        <Grid item xs={12} md={8}>
+          <Typography variant="h6" gutterBottom>
+            From the firehose
+          </Typography>
+          <Divider />
+          {data.allMdx.nodes.slice(3).map((node) => (
+            <div key={node.id}>
               <Typography variant="h4">{node.frontmatter.title}</Typography>
               <Typography>Posted: {node.frontmatter.date}</Typography>
               <MDXRenderer>{node.body}</MDXRenderer>
-            </Card>
+            </div>
           ))}
-        </main>
+        </Grid>
+
         {/* <Sidebar
           title={sidebar.title}
           description={sidebar.description}
           archives={sidebar.archives}
           social={sidebar.social}
         /> */}
+        <Grid item xs={12} md={4}>
+          <Paper elevation={0} className={classes.sidebarAboutBox}>
+            <Typography variant="h6" gutterBottom>
+              About
+            </Typography>
+            <Typography>description</Typography>
+          </Paper>
+          <Typography
+            variant="h6"
+            gutterBottom
+            className={classes.sidebarSection}
+          >
+            Archives
+          </Typography>
+          {/* {archives.map((archive) => (
+        <Link display="block" variant="body1" href={archive.url} key={archive.title}>
+          {archive.title}
+        </Link>
+      ))} */}
+          <Typography
+            variant="h6"
+            gutterBottom
+            className={classes.sidebarSection}
+          >
+            Social
+          </Typography>
+          {/* {social.map((network) => (
+        <Link display="block" variant="body1" href="#" key={network}>
+          <Grid container direction="row" spacing={1} alignItems="center">
+            <Grid item>
+              <network.icon />
+            </Grid>
+            <Grid item>{network.name}</Grid>
+          </Grid>
+        </Link>
+      ))} */}
+        </Grid>
       </Grid>
     </Layout>
   );
