@@ -5,6 +5,7 @@ import theme from "../theme";
 import Header from "./molecules/Header/Header";
 import Section from "../types/section";
 import Footer from "./molecules/Footer/Footer";
+import { Unnamed_1_Query } from "../types/graphqlTypes";
 
 const sections: Section[] = [
   { title: "Home", url: "/" },
@@ -16,9 +17,7 @@ const sections: Section[] = [
 ];
 
 const Layout = ({ children }) => {
-  const data = useStaticQuery<{
-    site: { siteMetadata: { title: string } };
-  }>(
+  const data = useStaticQuery<Unnamed_1_Query>(
     // Note: making this query named (e.g. `query getSite (`), breaks the develop build
     graphql`
     query {
