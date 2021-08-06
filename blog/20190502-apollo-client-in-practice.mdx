@@ -11,14 +11,14 @@ Besides that, the application had obvious state synchronization problems. When m
 
 To summarize, there were two issues that needed to be solved:
 
-    Poor performance due to excessive re-rendering
-    Loss of application state when navigating views due to decentralized state stores
+* Poor performance due to excessive re-rendering
+* Loss of application state when navigating views due to decentralized state stores
 
 Since both issues were caused by (a lack of) architecture, we redesigned the structure of the application. The original implementation used:
 
-    Apollo Client as a GraphQL client
-    Axios as an HTTP client for REST endpoints
-    Redux and React local state to manage the state between components
+* Apollo Client as a GraphQL client
+* Axios as an HTTP client for REST endpoints
+* Redux and React local state to manage the state between components
 
 It used Apollo, but by manually firing client.query() and after processing the response, it stored the result in the Redux store.
 Fixing application state with Apollo Local State
@@ -30,13 +30,18 @@ The way we used Apollo Client was also updated, to create a better separation of
 Example of wrapping a component in a Query HOC:
 ...
 
-Next steps
+```typescript{numberLines: true}
+// This is an example for syntax highlighting
+const x: string = "some string";
+```
+
+# Next steps
 
 Apollo is excellent for merging data from multiple sources (in this case GraphQL, REST, local state and cache) and functions as a “single source of truth” which should solve the state synchronization problems. The local fields that Apollo uses in its local state manager can derive data, moving expensive operations from component render functions to resolvers in its application level cache. Although the issues mentioned in the introduction are now dealt with, we did encounter plenty of other issues I may dive into later. However, these are some things that you might want to take into account when working with Apollo Client:
 
 Outside of restructuring the application, we improved performance with react-virtualized which speeds up rendering large tables. Apollo also offers GraphQL pagination. We did not use that, as we have to do our pagination on the client side to keep the sorting feature of react-virtualized in tact.
 
-Apollo Client offers support for TypeScript, it is even possible to generate queries and typed React components from GraphQL schemas with @graphql-codegen/cli.
+Apollo Client offers support for TypeScript, it is even possible to generate queries and typed React components from GraphQL schemas with `@graphql-codegen/cli`.
 
 Also definitely use the JS GraphQL IntelliJ Plugin because it will not only auto complete queries, but it will help you think about (client side) schema’s.
 
