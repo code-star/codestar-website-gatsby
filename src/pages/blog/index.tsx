@@ -1,6 +1,6 @@
 import * as React from "react";
-import Layout from "../components/layout";
-import { graphql } from "gatsby";
+import Layout from "../../components/layout";
+import { graphql, Link } from "gatsby";
 import {
   Divider,
   Grid,
@@ -9,8 +9,8 @@ import {
   Typography,
 } from "@material-ui/core";
 import { MDXRenderer } from "gatsby-plugin-mdx";
-import MainFeaturedPost from "../components/molecules/MainFeaturedPost/MainFeaturedPost";
-import FeaturedPost from "../components/molecules/FeaturedPost/FeaturedPost";
+import MainFeaturedPost from "../../components/molecules/MainFeaturedPost/MainFeaturedPost";
+import FeaturedPost from "../../components/molecules/FeaturedPost/FeaturedPost";
 
 // Example: https://github.com/hupe1980/gatsby-theme-material-ui/blob/master/packages/gatsby-theme-material-ui-top-layout/src/wrap-with-provider.js
 // TODO add wrap-with-provider (also see gatsby-browser.js), add helmet
@@ -67,8 +67,10 @@ const BlogPage = ({ data }) => {
             <div key={node.id} style={{ marginTop: "2rem" }}>
               <Typography variant="h4">{node.title}</Typography>
               <Typography>{node.date} by ...</Typography>
-              {/* <MDXRenderer>{node.body}</MDXRenderer> */}
               <div>{node.excerpt}</div>
+              <h2>
+                <Link to={`/blog/${node.slug}`}>Continue reading...</Link>
+              </h2>
             </div>
           ))}
         </Grid>
@@ -131,7 +133,7 @@ export const query = graphql`
         }
         id
         excerpt(truncate: true)
-        body
+        slug
       }
     }
   }

@@ -64,7 +64,7 @@ const MainFeaturedPost: FC<{ post: any }> = ({ post }) => {
               {post.title}
             </Typography>
             <Typography variant="h5" color="inherit" paragraph>
-              {post.description}
+              {post.excerpt}
             </Typography>
             <Link variant="subtitle1" href="#">
               {post.linkText}
