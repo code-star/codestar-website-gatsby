@@ -24,10 +24,10 @@ jobs:
       - name: Install and Build components 🔧
         run: |
           yarn install --frozen-lockfile
-      - name: Validate ☑️
-        run: yarn tsc
-        env:
-          CI: false # true -> fails on warning
+      #- name: Validate ☑️
+      #  run: yarn tsc
+      #  env:
+      #    CI: false # true -> fails on warning
       - name: Build 📚
         run: yarn gatsby build
       - name: Deploy 🚀
