@@ -1,7 +1,8 @@
 import React, { FC } from "react";
-import { Toolbar, Typography, Link } from "@material-ui/core";
+import { Toolbar, Typography, Link, AppBar } from "@material-ui/core";
 import useStyles from "./Header.styles";
 import Section from "../../../types/section";
+import { StaticImage } from "gatsby-plugin-image";
 
 // TODO add storybook
 
@@ -14,7 +15,7 @@ const Header: FC<Props> = ({ sections, title }) => {
   const classes = useStyles();
 
   return (
-    <>
+    <AppBar position="sticky" className={classes.appbar}>
       <Toolbar className={classes.toolbar}>
         {/* <Button size="small">Subscribe</Button> */}
         <Typography
@@ -25,7 +26,10 @@ const Header: FC<Props> = ({ sections, title }) => {
           noWrap
           className={classes.toolbarTitle}
         >
-          {title}
+          <StaticImage
+            alt={`${title} Logo`}
+            src="../../../images/codestar_logo_dark.svg"
+          />
         </Typography>
         {/* <IconButton>
           <SearchIcon />
@@ -52,7 +56,7 @@ const Header: FC<Props> = ({ sections, title }) => {
           </Link>
         ))}
       </Toolbar>
-    </>
+    </AppBar>
   );
 };
 
