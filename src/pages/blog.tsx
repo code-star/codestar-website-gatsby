@@ -12,6 +12,14 @@ import { MDXRenderer } from "gatsby-plugin-mdx";
 import MainFeaturedPost from "../components/molecules/MainFeaturedPost/MainFeaturedPost";
 import FeaturedPost from "../components/molecules/FeaturedPost/FeaturedPost";
 
+interface BlogPageProps {
+  data: {
+    allMdx: {
+      nodes: any[]; // TODO: fill in correct type here
+    };
+  };
+}
+
 // Example: https://github.com/hupe1980/gatsby-theme-material-ui/blob/master/packages/gatsby-theme-material-ui-top-layout/src/wrap-with-provider.js
 // TODO add wrap-with-provider (also see gatsby-browser.js), add helmet
 const useStyles = makeStyles((theme) => ({
@@ -27,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const BlogPage = ({ data }) => {
+const BlogPage = ({ data }: BlogPageProps) => {
   const classes = useStyles();
 
   const processedPosts = data.allMdx.nodes.map((node) => ({

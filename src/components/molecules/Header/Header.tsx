@@ -1,12 +1,21 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import SearchIcon from '@material-ui/icons/Search';
-import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Toolbar from "@material-ui/core/Toolbar";
+import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
+import SearchIcon from "@material-ui/icons/Search";
+import Typography from "@material-ui/core/Typography";
+import Link from "@material-ui/core/Link";
+
+interface Section {
+  title: string;
+  url: string;
+}
+
+interface HeaderProps {
+  title: string;
+  sections: Section[];
+}
 
 // TODO extract style
 // TODO add storybook
@@ -18,8 +27,8 @@ const useStyles = makeStyles((theme) => ({
     flex: 1,
   },
   toolbarSecondary: {
-    justifyContent: 'space-between',
-    overflowX: 'auto',
+    justifyContent: "space-between",
+    overflowX: "auto",
   },
   toolbarLink: {
     padding: theme.spacing(1),
@@ -27,11 +36,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// TODO refactor to FC
-export default function Header(props) {
+const Header = ({ sections, title }: HeaderProps) => {
   const classes = useStyles();
-  const { sections, title } = props;
-
   return (
     <>
       <Toolbar className={classes.toolbar}>
@@ -53,7 +59,11 @@ export default function Header(props) {
           Sign up
         </Button>
       </Toolbar>
-      <Toolbar component="nav" variant="dense" className={classes.toolbarSecondary}>
+      <Toolbar
+        component="nav"
+        variant="dense"
+        className={classes.toolbarSecondary}
+      >
         {sections.map((section) => (
           <Link
             color="inherit"
@@ -69,4 +79,6 @@ export default function Header(props) {
       </Toolbar>
     </>
   );
-}
+};
+
+export default Header;

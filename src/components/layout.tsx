@@ -1,12 +1,12 @@
 import * as React from "react";
 import { useStaticQuery, graphql } from "gatsby";
-import {
-  Container,
-  CssBaseline,
-  ThemeProvider,
-} from "@material-ui/core";
+import { Container, CssBaseline, ThemeProvider } from "@material-ui/core";
 import theme from "../theme";
 import Header from "./molecules/Header/Header";
+
+interface LayoutProps {
+  pageTitle: string;
+}
 
 const sections = [
   { title: "Home", url: "/" },
@@ -21,7 +21,7 @@ const sections = [
   { title: "Travel", url: "#" },
 ];
 
-const Layout = ({ pageTitle, children }) => {
+const Layout: React.FC<LayoutProps> = ({ pageTitle, children }) => {
   const data = useStaticQuery(graphql`
     query {
       site {

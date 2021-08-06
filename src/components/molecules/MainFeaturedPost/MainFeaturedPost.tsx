@@ -4,6 +4,11 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Link from "@material-ui/core/Link";
+import { BlogPost } from "../../../types/blog-post";
+
+interface MainFeaturedPostProps {
+  post: BlogPost;
+}
 
 const useStyles = makeStyles((theme) => ({
   mainFeaturedPost: {
@@ -34,8 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// TODO add strict typechecking
-const MainFeaturedPost: FC<{ post: any }> = ({ post }) => {
+const MainFeaturedPost = ({ post }: MainFeaturedPostProps) => {
   const classes = useStyles();
 
   return (
