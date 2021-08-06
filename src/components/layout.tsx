@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { FC } from "react";
 import { useStaticQuery, graphql } from "gatsby";
 import { Container, CssBaseline, ThemeProvider } from "@material-ui/core";
 import theme from "../theme";
@@ -15,7 +15,7 @@ const sections: Section[] = [
   { title: "Contact", url: "https://www.ordina.nl/vakgebieden/scala/" },
 ];
 
-const Layout = ({ children }) => {
+const Layout: FC = ({ children }) => {
   const data = useStaticQuery<{
     site: { siteMetadata: { title: string } };
   }>(graphql`

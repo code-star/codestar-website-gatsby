@@ -24,11 +24,11 @@ const useStyles = makeStyles({
   },
 });
 
-interface Props {
+interface FeaturedPostProps {
   post: Post;
 }
 
-const FeaturedPost: FC<Props> = ({ post }) => {
+const FeaturedPost: FC<FeaturedPostProps> = ({ post }) => {
   const classes = useStyles();
 
   return (

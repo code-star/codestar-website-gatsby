@@ -7,12 +7,12 @@ import MainMenu from "../../organisms/MainMenu/MainMenu";
 
 // TODO add storybook
 
-interface Props {
+interface HeaderProps {
   sections: Section[];
   title: string;
 }
 
-const Header: FC<Props> = ({ sections, title }) => {
+const Header: FC<HeaderProps> = ({ sections, title }) => {
   const classes = useStyles();
 
   return (
