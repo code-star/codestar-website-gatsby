@@ -1,6 +1,6 @@
 import * as React from "react";
 import Layout from "../../components/layout";
-import { graphql, Link as GatsbyLink } from "gatsby";
+import { graphql, Link as GatsbyLink, useStaticQuery } from "gatsby";
 import {
   Divider,
   Grid,
@@ -28,8 +28,34 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const BlogPage = ({ data }) => {
+const BlogPage = () => {
   const classes = useStyles();
+
+  // TODO generate types from queries
+  const data = useStaticQuery<{
+    allMdx: {
+      nodes: {
+        frontmatter: { date: string; title: string };
+        id: string;
+        excerpt: string;
+        slug: string;
+      }[];
+    };
+  }>(graphql`
+    query {
+      allMdx(sort: { fields: frontmatter___date, order: DESC }) {
+        nodes {
+          frontmatter {
+            date(formatString: "MMMM D, YYYY")
+            title
+          }
+          id
+          excerpt(truncate: true)
+          slug
+        }
+      }
+    }
+  `);
 
   const processedPosts = data.allMdx.nodes.map((node) => ({
     ...node,
@@ -39,7 +65,7 @@ const BlogPage = ({ data }) => {
       "Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",
     // image: "https://source.unsplash.com/random",
     image: "https://images.unsplash.com/photo-1626422748187-18b829d019e2",
-    imgText: "main image description",
+    imageText: "main image description",
     linkText: "Continue reading…",
   }));
 
@@ -127,21 +153,5 @@ const BlogPage = ({ data }) => {
     </Layout>
   );
 };
-
-export const query = graphql`
-  query {
-    allMdx(sort: { fields: frontmatter___date, order: DESC }) {
-      nodes {
-        frontmatter {
-          date(formatString: "MMMM D, YYYY")
-          title
-        }
-        id
-        excerpt(truncate: true)
-        slug
-      }
-    }
-  }
-`;
 
 export default BlogPage;
