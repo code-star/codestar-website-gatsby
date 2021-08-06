@@ -11,13 +11,9 @@ const sections = [
   { title: "Learning", url: "#" },
   { title: "Events", url: "#" },
   { title: "Contact", url: "#" },
-  // { title: "Science", url: "#" },
-  // { title: "Health", url: "#" },
-  // { title: "Style", url: "#" },
-  // { title: "Travel", url: "#" },
 ];
 
-const Layout = ({ pageTitle, children }) => {
+const Layout = ({ children }) => {
   const data = useStaticQuery<{
     site: { siteMetadata: { title: string } };
   }>(graphql`
@@ -30,23 +26,21 @@ const Layout = ({ pageTitle, children }) => {
     }
   `);
 
-  const title = `${pageTitle} | ${data.site.siteMetadata.title}`;
+  const title = data.site.siteMetadata.title;
 
   return (
-    <>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Container maxWidth="lg">
-          <Header title={title} sections={sections} />
-          {children}
-        </Container>
-        {/* TODO Get footer from https://github.com/mui-org/material-ui/blob/master/docs/src/pages/getting-started/templates/blog/Blog.js */}
-        {/* <Footer
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Container maxWidth="lg">
+        <Header title={title} sections={sections} />
+        {children}
+      </Container>
+      {/* TODO Get footer from https://github.com/mui-org/material-ui/blob/master/docs/src/pages/getting-started/templates/blog/Blog.js */}
+      {/* <Footer
           title="Footer"
           description="Something here to give the footer a purpose!"
         /> */}
-      </ThemeProvider>
-    </>
+    </ThemeProvider>
   );
 };
 export default Layout;

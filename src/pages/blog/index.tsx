@@ -1,5 +1,4 @@
 import * as React from "react";
-import Layout from "../../components/layout";
 import { graphql, Link as GatsbyLink, useStaticQuery } from "gatsby";
 import {
   Divider,
@@ -9,7 +8,6 @@ import {
   Typography,
   Link,
 } from "@material-ui/core";
-import { MDXRenderer } from "gatsby-plugin-mdx";
 import MainFeaturedPost from "../../components/molecules/MainFeaturedPost/MainFeaturedPost";
 import FeaturedPost from "../../components/molecules/FeaturedPost/FeaturedPost";
 
@@ -74,7 +72,7 @@ const BlogPage = () => {
   const olderPosts = processedPosts.slice(3);
 
   return (
-    <Layout pageTitle="My Blog Posts">
+    <>
       <MainFeaturedPost post={mainFeaturedPost} />
       <Grid container spacing={4}>
         {featuredPosts.map((post) => (
@@ -150,7 +148,7 @@ const BlogPage = () => {
       ))} */}
         </Grid>
       </Grid>
-    </Layout>
+    </>
   );
 };
 
