@@ -15,14 +15,14 @@ const Header: FC<Props> = ({ sections, title }) => {
   const classes = useStyles();
 
   return (
-    <AppBar position="sticky" className={classes.appbar}>
+    <AppBar position="static" className={classes.appbar}>
       <Toolbar className={classes.toolbar}>
         {/* <Button size="small">Subscribe</Button> */}
         <Typography
           component="h2"
           variant="h5"
           color="inherit"
-          align="center"
+          // align="center"
           noWrap
           className={classes.toolbarTitle}
         >
@@ -37,8 +37,20 @@ const Header: FC<Props> = ({ sections, title }) => {
         <Button variant="outlined" size="small">
           Sign up
         </Button> */}
+        {sections.map((section) => (
+          <Link
+            color="inherit"
+            noWrap
+            key={section.title}
+            variant="body2"
+            href={section.url}
+            className={classes.toolbarLink}
+          >
+            {section.title}
+          </Link>
+        ))}
       </Toolbar>
-      <Toolbar
+      {/* <Toolbar
         component="nav"
         variant="dense"
         className={classes.toolbarSecondary}
@@ -55,7 +67,7 @@ const Header: FC<Props> = ({ sections, title }) => {
             {section.title}
           </Link>
         ))}
-      </Toolbar>
+      </Toolbar> */}
     </AppBar>
   );
 };
