@@ -1,65 +1,56 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Toolbar from "@material-ui/core/Toolbar";
-import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import SearchIcon from "@material-ui/icons/Search";
-import Typography from "@material-ui/core/Typography";
-import Link from "@material-ui/core/Link";
+import React, { FC } from "react";
+import { Toolbar, Typography, Link, AppBar } from "@material-ui/core";
+import useStyles from "./Header.styles";
+import Section from "../../../types/section";
+import { StaticImage } from "gatsby-plugin-image";
 
-interface Section {
-  title: string;
-  url: string;
-}
+// TODO add storybook
 
 interface HeaderProps {
-  title: string;
   sections: Section[];
+  title: string;
 }
 
-// TODO extract style
-// TODO add storybook
-const useStyles = makeStyles((theme) => ({
-  toolbar: {
-    borderBottom: `1px solid ${theme.palette.divider}`,
-  },
-  toolbarTitle: {
-    flex: 1,
-  },
-  toolbarSecondary: {
-    justifyContent: "space-between",
-    overflowX: "auto",
-  },
-  toolbarLink: {
-    padding: theme.spacing(1),
-    flexShrink: 0,
-  },
-}));
-
-const Header = ({ sections, title }: HeaderProps) => {
+const Header: FC<HeaderProps> = ({ sections, title }) => {
   const classes = useStyles();
+
   return (
-    <>
+    <AppBar position="static" className={classes.appbar}>
       <Toolbar className={classes.toolbar}>
-        <Button size="small">Subscribe</Button>
+        {/* <Button size="small">Subscribe</Button> */}
         <Typography
           component="h2"
           variant="h5"
           color="inherit"
-          align="center"
+          // align="center"
           noWrap
           className={classes.toolbarTitle}
         >
-          {title}
+          <StaticImage
+            alt={`${title} Logo`}
+            src="../../../images/codestar_logo_dark.svg"
+          />
         </Typography>
-        <IconButton>
+        {/* <IconButton>
           <SearchIcon />
         </IconButton>
         <Button variant="outlined" size="small">
           Sign up
-        </Button>
+        </Button> */}
+        {sections.map((section) => (
+          <Link
+            color="inherit"
+            noWrap
+            key={section.title}
+            variant="body2"
+            href={section.url}
+            className={classes.toolbarLink}
+          >
+            {section.title}
+          </Link>
+        ))}
       </Toolbar>
-      <Toolbar
+      {/* <Toolbar
         component="nav"
         variant="dense"
         className={classes.toolbarSecondary}
@@ -76,8 +67,8 @@ const Header = ({ sections, title }: HeaderProps) => {
             {section.title}
           </Link>
         ))}
-      </Toolbar>
-    </>
+      </Toolbar> */}
+    </AppBar>
   );
 };
 

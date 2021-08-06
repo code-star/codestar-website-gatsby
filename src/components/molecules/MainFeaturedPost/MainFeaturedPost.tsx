@@ -1,14 +1,7 @@
 import React, { FC } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
-import Link from "@material-ui/core/Link";
-import { BlogPost } from "../../../types/blog-post";
-
-interface MainFeaturedPostProps {
-  post: BlogPost;
-}
+import { makeStyles, Paper, Typography, Grid, Link } from "@material-ui/core";
+import { Link as GatsbyLink } from "gatsby";
+import Post from "../../../types/post";
 
 const useStyles = makeStyles((theme) => ({
   mainFeaturedPost: {
@@ -39,7 +32,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MainFeaturedPost = ({ post }: MainFeaturedPostProps) => {
+interface MainFeaturedPostProps {
+  post: Post;
+}
+
+const MainFeaturedPost: FC<MainFeaturedPostProps> = ({ post }) => {
   const classes = useStyles();
 
   return (
@@ -68,9 +65,13 @@ const MainFeaturedPost = ({ post }: MainFeaturedPostProps) => {
               {post.title}
             </Typography>
             <Typography variant="h5" color="inherit" paragraph>
-              {post.description}
+              {post.excerpt}
             </Typography>
-            <Link variant="subtitle1" href="#">
+            <Link
+              variant="subtitle1"
+              component={GatsbyLink}
+              to={`/blog/${post.slug}`}
+            >
               {post.linkText}
             </Link>
           </div>

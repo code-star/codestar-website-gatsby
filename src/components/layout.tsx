@@ -3,26 +3,22 @@ import { useStaticQuery, graphql } from "gatsby";
 import { Container, CssBaseline, ThemeProvider } from "@material-ui/core";
 import theme from "../theme";
 import Header from "./molecules/Header/Header";
+import Section from "../types/section";
+import Footer from "./molecules/Footer/Footer";
 
-interface LayoutProps {
-  pageTitle: string;
-}
-
-const sections = [
+const sections: Section[] = [
   { title: "Home", url: "/" },
   { title: "Blog", url: "/blog" },
   { title: "About", url: "/about" },
-  { title: "Business", url: "#" },
-  { title: "Politics", url: "#" },
-  { title: "Opinion", url: "#" },
-  { title: "Science", url: "#" },
-  { title: "Health", url: "#" },
-  { title: "Style", url: "#" },
-  { title: "Travel", url: "#" },
+  { title: "Learning", url: "/learning" },
+  { title: "Events", url: "/events" },
+  { title: "Contact", url: "https://www.ordina.nl/vakgebieden/scala/" },
 ];
 
-const Layout: React.FC<LayoutProps> = ({ pageTitle, children }) => {
-  const data = useStaticQuery(graphql`
+const Layout: React.FC = ({ children }) => {
+  const data = useStaticQuery<{
+    site: { siteMetadata: { title: string } };
+  }>(graphql`
     query {
       site {
         siteMetadata {
@@ -32,24 +28,17 @@ const Layout: React.FC<LayoutProps> = ({ pageTitle, children }) => {
     }
   `);
 
-  const title = `${pageTitle} | ${data.site.siteMetadata.title}`;
+  const title = data.site.siteMetadata.title;
 
   return (
-    <>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Container maxWidth="lg">
-          <Header title={title} sections={sections} />
-
-          {children}
-        </Container>
-        {/* TODO Get footer from https://github.com/mui-org/material-ui/blob/master/docs/src/pages/getting-started/templates/blog/Blog.js */}
-        {/* <Footer
-          title="Footer"
-          description="Something here to give the footer a purpose!"
-        /> */}
-      </ThemeProvider>
-    </>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Container maxWidth="lg">
+        <Header title={title} sections={sections} />
+        {children}
+      </Container>
+      <Footer />
+    </ThemeProvider>
   );
 };
 export default Layout;

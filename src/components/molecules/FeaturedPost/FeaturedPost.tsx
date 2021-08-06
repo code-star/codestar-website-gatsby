@@ -1,17 +1,16 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Hidden from "@material-ui/core/Hidden";
-import { BlogPost } from "../../../types/blog-post";
-
-interface FeaturedPostProps {
-  post: BlogPost;
-}
+import React, { FC } from "react";
+import {
+  makeStyles,
+  Typography,
+  Grid,
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  Hidden,
+} from "@material-ui/core";
+import { Link as GatsbyLink } from "gatsby";
+import Post from "../../../types/post";
 
 const useStyles = makeStyles({
   card: {
@@ -25,12 +24,16 @@ const useStyles = makeStyles({
   },
 });
 
-const FeaturedPost = ({ post }: FeaturedPostProps) => {
+interface FeaturedPostProps {
+  post: Post;
+}
+
+const FeaturedPost: FC<FeaturedPostProps> = ({ post }) => {
   const classes = useStyles();
 
   return (
     <Grid item xs={12} md={6}>
-      <CardActionArea component="a" href="#">
+      <CardActionArea component={GatsbyLink} to={`/blog/${post.slug}`}>
         <Card className={classes.card}>
           <div className={classes.cardDetails}>
             <CardContent>
@@ -44,7 +47,7 @@ const FeaturedPost = ({ post }: FeaturedPostProps) => {
                 {post.description}
               </Typography>
               <Typography variant="subtitle1" color="primary">
-                Continue reading...
+                {post.linkText}
               </Typography>
             </CardContent>
           </div>
@@ -52,7 +55,7 @@ const FeaturedPost = ({ post }: FeaturedPostProps) => {
             <CardMedia
               className={classes.cardMedia}
               image={post.image}
-              title={post.imageTitle}
+              title={post.imageText}
             />
           </Hidden>
         </Card>
