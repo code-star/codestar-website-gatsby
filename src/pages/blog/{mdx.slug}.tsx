@@ -12,12 +12,12 @@ interface Props {
 const BlogPost: FC<Props> = ({ data }) => (
   <>
     <Typography variant="h2" gutterBottom>
-      {data.mdx.frontmatter.title}
+      {data?.mdx?.frontmatter?.title}
     </Typography>
     <Typography variant="body2" gutterBottom>
-      {data.mdx.frontmatter.date}
+      {data?.mdx?.frontmatter?.date}
     </Typography>
-    <MDXRenderer>{data.mdx.body}</MDXRenderer>
+    <MDXRenderer>{data?.mdx?.body ?? ""}</MDXRenderer>
   </>
 );
 

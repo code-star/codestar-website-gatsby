@@ -29,12 +29,12 @@ const Layout: FC = ({ children }) => {
     }
   `);
 
-  const title = data.site.siteMetadata.title;
+  const title = data?.site?.siteMetadata?.title ?? "";
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Container maxWidth="lg">
+    <Container maxWidth="lg">
         <Header title={title} sections={sections} />
         {children}
       </Container>

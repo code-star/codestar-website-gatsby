@@ -51,8 +51,8 @@ const BlogPage: FC = () => {
 
   const processedPosts: Post[] = data.allMdx.nodes.map((node) => ({
     ...node,
-    date: node.frontmatter.date,
-    title: node.frontmatter.title.substr(0, 30),
+    date: node?.frontmatter?.date ?? "",
+    title: node?.frontmatter?.title.substr(0, 30) ?? "",
     description:
       "Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",
     // image: "https://source.unsplash.com/random",
