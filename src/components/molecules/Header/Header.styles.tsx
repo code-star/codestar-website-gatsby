@@ -3,6 +3,8 @@ import { makeStyles } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
   appbar: {
     backgroundColor: "rgba(0,20,43,0.0)",
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
     // marginLeft: -theme.spacing(4),
     // marginRight: -theme.spacing(4),
   },
