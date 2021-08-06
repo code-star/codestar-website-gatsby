@@ -4,6 +4,7 @@ import { Container, CssBaseline, ThemeProvider } from "@material-ui/core";
 import theme from "../theme";
 import Header from "./molecules/Header/Header";
 import Section from "../types/section";
+import Footer from "./molecules/Footer/Footer";
 
 const sections: Section[] = [
   { title: "Home", url: "/" },
@@ -36,11 +37,7 @@ const Layout = ({ children }) => {
         <Header title={title} sections={sections} />
         {children}
       </Container>
-      {/* TODO Get footer from https://github.com/mui-org/material-ui/blob/master/docs/src/pages/getting-started/templates/blog/Blog.js */}
-      {/* <Footer
-          title="Footer"
-          description="Something here to give the footer a purpose!"
-        /> */}
+      <Footer />
     </ThemeProvider>
   );
 };

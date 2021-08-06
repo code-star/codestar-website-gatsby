@@ -1,51 +1,44 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
+import React, { FC } from "react";
+import { Container, Typography, Link } from "@material-ui/core";
+import useStyles from "./Footer.styles";
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
+      {"Copyright © "}
+      <Link color="inherit" href="https://codestar.nl">
+        Codestar
+      </Link>{" "}
       {new Date().getFullYear()}
-      {'.'}
     </Typography>
   );
 }
+interface Props {
+  title?: string;
+}
 
-const useStyles = makeStyles((theme) => ({
-  footer: {
-    backgroundColor: theme.palette.background.paper,
-    // marginTop: theme.spacing(8),
-    padding: theme.spacing(6, 0),
-  },
-}));
-
-export default function Footer(props) {
+const Footer: FC<Props> = ({ title }) => {
   const classes = useStyles();
-  const { description, title } = props;
 
   return (
     <footer className={classes.footer}>
       <Container maxWidth="lg">
         <Typography variant="h6" align="center" gutterBottom>
-          {title}
+          {title || "codestar@ordina.nl"}
         </Typography>
-        <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
-          {description}
+        <Typography
+          variant="subtitle1"
+          align="center"
+          color="textSecondary"
+          component="p"
+        >
+           +31 30 6637000 {" "}
+           Ringwade 1, 3439 LM Nieuwegein
         </Typography>
         <Copyright />
       </Container>
     </footer>
   );
-}
-
-Footer.propTypes = {
-  description: PropTypes.string,
-  title: PropTypes.string,
 };
+
+export default Footer;
