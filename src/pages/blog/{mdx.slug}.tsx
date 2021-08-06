@@ -31,7 +31,7 @@ const BlogPost: FC<Props> = ({ data }) => {
 };
 
 export const query = graphql`
-  query MyQuery($id: String) {
+  query getArticle($id: String) {
     mdx(id: { eq: $id }) {
       frontmatter {
         title

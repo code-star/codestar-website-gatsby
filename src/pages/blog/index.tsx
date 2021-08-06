@@ -40,7 +40,7 @@ const BlogPage = () => {
       }[];
     };
   }>(graphql`
-    query {
+    query getAllArticles {
       allMdx(sort: { fields: frontmatter___date, order: DESC }) {
         nodes {
           frontmatter {
