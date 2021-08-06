@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { FC } from "react";
 import { graphql, Link as GatsbyLink, useStaticQuery } from "gatsby";
 import {
   Divider,
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const BlogPage = () => {
+const BlogPage: FC = () => {
   const classes = useStyles();
 
   const data = useStaticQuery<GetAllArticlesQuery>(graphql`

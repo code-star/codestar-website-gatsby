@@ -1,11 +1,5 @@
 import React, { FC } from "react";
-import {
-  makeStyles,
-  Paper,
-  Typography,
-  Grid,
-  Link,
-} from "@material-ui/core";
+import { makeStyles, Paper, Typography, Grid, Link } from "@material-ui/core";
 import { Link as GatsbyLink } from "gatsby";
 import Post from "../../../types/post";
 
@@ -38,11 +32,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface Props {
+interface MainFeaturedPostProps {
   post: Post;
 }
 
-const MainFeaturedPost: FC<Props> = ({ post }) => {
+const MainFeaturedPost: FC<MainFeaturedPostProps> = ({ post }) => {
   const classes = useStyles();
 
   return (

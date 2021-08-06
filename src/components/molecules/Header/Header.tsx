@@ -6,12 +6,12 @@ import { StaticImage } from "gatsby-plugin-image";
 
 // TODO add storybook
 
-interface Props {
+interface HeaderProps {
   sections: Section[];
   title: string;
 }
 
-const Header: FC<Props> = ({ sections, title }) => {
+const Header: FC<HeaderProps> = ({ sections, title }) => {
   const classes = useStyles();
 
   return (
