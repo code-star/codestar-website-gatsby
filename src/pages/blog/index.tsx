@@ -11,6 +11,7 @@ import {
 import MainFeaturedPost from "../../components/molecules/MainFeaturedPost/MainFeaturedPost";
 import FeaturedPost from "../../components/molecules/FeaturedPost/FeaturedPost";
 import { GetAllArticlesQuery } from "../../types/graphqlTypes";
+import Post from "../../types/post";
 
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
@@ -25,48 +26,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// const x = graphql`
-//   fragment Bla on mdx {
-//     frontmatter {
-//       date(formatString: "MMMM D, YYYY")
-//       title
-//     }
-//     id
-//     excerpt(truncate: true)
-//     slug
-//   }
-// `;
-
 const BlogPage = () => {
   const classes = useStyles();
 
   const data = useStaticQuery<GetAllArticlesQuery>(graphql`
-    # fragment MyMdx on Mdx {
-    #   frontmatter {
-    #     date(formatString: "MMMM D, YYYY")
-    #     title
-    #   }
-    #   id
-    #   excerpt(truncate: true)
-    #   slug
-    # }
+    fragment MdxFields on Mdx {
+      frontmatter {
+        date(formatString: "MMMM D, YYYY")
+        title
+      }
+      id
+      excerpt(truncate: true)
+      slug
+    }
+
     query getAllArticles {
       allMdx(sort: { fields: frontmatter___date, order: DESC }) {
         nodes {
-          # ...MyMdx
-          frontmatter {
-            date(formatString: "MMMM D, YYYY")
-            title
-          }
-          id
-          excerpt(truncate: true)
-          slug
+          ...MdxFields
         }
       }
     }
   `);
 
-  const processedPosts = data.allMdx.nodes.map((node) => ({
+  const processedPosts: Post[] = data.allMdx.nodes.map((node) => ({
     ...node,
     date: node.frontmatter.date,
     title: node.frontmatter.title.substr(0, 30),
