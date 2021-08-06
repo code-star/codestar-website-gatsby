@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { FC } from "react";
 import { graphql, Link as GatsbyLink, useStaticQuery } from "gatsby";
 import {
   Divider,
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const BlogPage: React.FC = () => {
+const BlogPage: FC = () => {
   const classes = useStyles();
 
   // TODO generate types from queries
