@@ -1,12 +1,13 @@
 import * as React from "react";
 import Layout from "../../components/layout";
-import { graphql, Link } from "gatsby";
+import { graphql, Link as GatsbyLink } from "gatsby";
 import {
   Divider,
   Grid,
   makeStyles,
   Paper,
   Typography,
+  Link,
 } from "@material-ui/core";
 import { MDXRenderer } from "gatsby-plugin-mdx";
 import MainFeaturedPost from "../../components/molecules/MainFeaturedPost/MainFeaturedPost";
@@ -60,7 +61,7 @@ const BlogPage = ({ data }) => {
 
         <Grid item xs={12} md={8}>
           <Typography variant="h6" gutterBottom>
-            From the firehose
+            More articles
           </Typography>
           <Divider />
           {olderPosts.map((node) => (
@@ -68,9 +69,13 @@ const BlogPage = ({ data }) => {
               <Typography variant="h4">{node.title}</Typography>
               <Typography>{node.date} by ...</Typography>
               <div>{node.excerpt}</div>
-              <h2>
-                <Link to={`/blog/${node.slug}`}>Continue reading...</Link>
-              </h2>
+              <Link
+                variant="subtitle1"
+                component={GatsbyLink}
+                to={`/blog/${node.slug}`}
+              >
+                {node.linkText}
+              </Link>
             </div>
           ))}
         </Grid>
