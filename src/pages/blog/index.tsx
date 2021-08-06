@@ -1,19 +1,16 @@
 import * as React from "react";
-import Layout from "../components/layout";
-import { graphql } from "gatsby";
+import { graphql, Link as GatsbyLink, useStaticQuery } from "gatsby";
 import {
   Divider,
   Grid,
   makeStyles,
   Paper,
   Typography,
+  Link,
 } from "@material-ui/core";
-import { MDXRenderer } from "gatsby-plugin-mdx";
-import MainFeaturedPost from "../components/molecules/MainFeaturedPost/MainFeaturedPost";
-import FeaturedPost from "../components/molecules/FeaturedPost/FeaturedPost";
+import MainFeaturedPost from "../../components/molecules/MainFeaturedPost/MainFeaturedPost";
+import FeaturedPost from "../../components/molecules/FeaturedPost/FeaturedPost";
 
-// Example: https://github.com/hupe1980/gatsby-theme-material-ui/blob/master/packages/gatsby-theme-material-ui-top-layout/src/wrap-with-provider.js
-// TODO add wrap-with-provider (also see gatsby-browser.js), add helmet
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
     marginTop: theme.spacing(3),
@@ -27,8 +24,36 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const BlogPage = ({ data }) => {
+const BlogPage = () => {
   const classes = useStyles();
+
+  // TODO generate types from queries
+  // Please note that you can use https://github.com/dotansimha/graphql-code-generator
+  // to generate all types from graphQL schema
+  const data = useStaticQuery<{
+    allMdx: {
+      nodes: {
+        frontmatter: { date: string; title: string };
+        id: string;
+        excerpt: string;
+        slug: string;
+      }[];
+    };
+  }>(graphql`
+    query {
+      allMdx(sort: { fields: frontmatter___date, order: DESC }) {
+        nodes {
+          frontmatter {
+            date(formatString: "MMMM D, YYYY")
+            title
+          }
+          id
+          excerpt(truncate: true)
+          slug
+        }
+      }
+    }
+  `);
 
   const processedPosts = data.allMdx.nodes.map((node) => ({
     ...node,
@@ -38,7 +63,7 @@ const BlogPage = ({ data }) => {
       "Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",
     // image: "https://source.unsplash.com/random",
     image: "https://images.unsplash.com/photo-1626422748187-18b829d019e2",
-    imgText: "main image description",
+    imageText: "main image description",
     linkText: "Continue reading…",
   }));
 
@@ -47,7 +72,7 @@ const BlogPage = ({ data }) => {
   const olderPosts = processedPosts.slice(3);
 
   return (
-    <Layout pageTitle="My Blog Posts">
+    <>
       <MainFeaturedPost post={mainFeaturedPost} />
       <Grid container spacing={4}>
         {featuredPosts.map((post) => (
@@ -60,15 +85,21 @@ const BlogPage = ({ data }) => {
 
         <Grid item xs={12} md={8}>
           <Typography variant="h6" gutterBottom>
-            From the firehose
+            More articles
           </Typography>
           <Divider />
           {olderPosts.map((node) => (
             <div key={node.id} style={{ marginTop: "2rem" }}>
               <Typography variant="h4">{node.title}</Typography>
               <Typography>{node.date} by ...</Typography>
-              {/* <MDXRenderer>{node.body}</MDXRenderer> */}
               <div>{node.excerpt}</div>
+              <Link
+                variant="subtitle1"
+                component={GatsbyLink}
+                to={`/blog/${node.slug}`}
+              >
+                {node.linkText}
+              </Link>
             </div>
           ))}
         </Grid>
@@ -117,24 +148,8 @@ const BlogPage = ({ data }) => {
       ))} */}
         </Grid>
       </Grid>
-    </Layout>
+    </>
   );
 };
-
-export const query = graphql`
-  query {
-    allMdx(sort: { fields: frontmatter___date, order: DESC }) {
-      nodes {
-        frontmatter {
-          date(formatString: "MMMM D, YYYY")
-          title
-        }
-        id
-        excerpt(truncate: true)
-        body
-      }
-    }
-  }
-`;
 
 export default BlogPage;

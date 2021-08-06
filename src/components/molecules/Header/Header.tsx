@@ -1,59 +1,42 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import SearchIcon from '@material-ui/icons/Search';
-import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
+import React, { FC } from "react";
+import { Toolbar, Typography, Link, AppBar } from "@material-ui/core";
+import useStyles from "./Header.styles";
+import Section from "../../../types/section";
+import { StaticImage } from "gatsby-plugin-image";
 
-// TODO extract style
 // TODO add storybook
-const useStyles = makeStyles((theme) => ({
-  toolbar: {
-    borderBottom: `1px solid ${theme.palette.divider}`,
-  },
-  toolbarTitle: {
-    flex: 1,
-  },
-  toolbarSecondary: {
-    justifyContent: 'space-between',
-    overflowX: 'auto',
-  },
-  toolbarLink: {
-    padding: theme.spacing(1),
-    flexShrink: 0,
-  },
-}));
 
-// TODO refactor to FC
-export default function Header(props) {
+interface Props {
+  sections: Section[];
+  title: string;
+}
+
+const Header: FC<Props> = ({ sections, title }) => {
   const classes = useStyles();
-  const { sections, title } = props;
 
   return (
-    <>
+    <AppBar position="static" className={classes.appbar}>
       <Toolbar className={classes.toolbar}>
-        <Button size="small">Subscribe</Button>
+        {/* <Button size="small">Subscribe</Button> */}
         <Typography
           component="h2"
           variant="h5"
           color="inherit"
-          align="center"
+          // align="center"
           noWrap
           className={classes.toolbarTitle}
         >
-          {title}
+          <StaticImage
+            alt={`${title} Logo`}
+            src="../../../images/codestar_logo_dark.svg"
+          />
         </Typography>
-        <IconButton>
+        {/* <IconButton>
           <SearchIcon />
         </IconButton>
         <Button variant="outlined" size="small">
           Sign up
-        </Button>
-      </Toolbar>
-      <Toolbar component="nav" variant="dense" className={classes.toolbarSecondary}>
+        </Button> */}
         {sections.map((section) => (
           <Link
             color="inherit"
@@ -67,6 +50,26 @@ export default function Header(props) {
           </Link>
         ))}
       </Toolbar>
-    </>
+      {/* <Toolbar
+        component="nav"
+        variant="dense"
+        className={classes.toolbarSecondary}
+      >
+        {sections.map((section) => (
+          <Link
+            color="inherit"
+            noWrap
+            key={section.title}
+            variant="body2"
+            href={section.url}
+            className={classes.toolbarLink}
+          >
+            {section.title}
+          </Link>
+        ))}
+      </Toolbar> */}
+    </AppBar>
   );
-}
+};
+
+export default Header;
