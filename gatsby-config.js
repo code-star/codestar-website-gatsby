@@ -4,7 +4,6 @@ module.exports = {
     title: "Codestar",
   },
   plugins: [
-    `gatsby-theme-material-ui`,
     {
       resolve: "gatsby-source-filesystem",
       options: {
