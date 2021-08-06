@@ -10,6 +10,8 @@ import {
 } from "@material-ui/core";
 import MainFeaturedPost from "../../components/molecules/MainFeaturedPost/MainFeaturedPost";
 import FeaturedPost from "../../components/molecules/FeaturedPost/FeaturedPost";
+import { GetAllArticlesQuery } from "../../types/graphqlTypes";
+import Post from "../../types/post";
 
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
@@ -27,38 +29,30 @@ const useStyles = makeStyles((theme) => ({
 const BlogPage: FC = () => {
   const classes = useStyles();
 
-  // TODO generate types from queries
-  // Please note that you can use https://github.com/dotansimha/graphql-code-generator
-  // to generate all types from graphQL schema
-  const data = useStaticQuery<{
-    allMdx: {
-      nodes: {
-        frontmatter: { date: string; title: string };
-        id: string;
-        excerpt: string;
-        slug: string;
-      }[];
-    };
-  }>(graphql`
-    query {
+  const data = useStaticQuery<GetAllArticlesQuery>(graphql`
+    fragment MdxFields on Mdx {
+      frontmatter {
+        date(formatString: "MMMM D, YYYY")
+        title
+      }
+      id
+      excerpt(truncate: true)
+      slug
+    }
+
+    query getAllArticles {
       allMdx(sort: { fields: frontmatter___date, order: DESC }) {
         nodes {
-          frontmatter {
-            date(formatString: "MMMM D, YYYY")
-            title
-          }
-          id
-          excerpt(truncate: true)
-          slug
+          ...MdxFields
         }
       }
     }
   `);
 
-  const processedPosts = data.allMdx.nodes.map((node) => ({
+  const processedPosts: Post[] = data.allMdx.nodes.map((node) => ({
     ...node,
-    date: node.frontmatter.date,
-    title: node.frontmatter.title.substr(0, 30),
+    date: node?.frontmatter?.date ?? "",
+    title: node?.frontmatter?.title.substr(0, 30) ?? "",
     description:
       "Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",
     // image: "https://source.unsplash.com/random",
