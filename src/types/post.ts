@@ -3,7 +3,7 @@ interface Post {
   imageText: string;
   title: string;
   excerpt: string;
-  slug: string;
+  slug?: string;
   linkText: string;
   date: string;
   description: string;

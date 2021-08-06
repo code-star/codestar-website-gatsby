@@ -10,6 +10,7 @@ import {
 } from "@material-ui/core";
 import MainFeaturedPost from "../../components/molecules/MainFeaturedPost/MainFeaturedPost";
 import FeaturedPost from "../../components/molecules/FeaturedPost/FeaturedPost";
+import { GetAllArticlesQuery } from "../../types/graphqlTypes";
 
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
@@ -24,25 +25,35 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// const x = graphql`
+//   fragment Bla on mdx {
+//     frontmatter {
+//       date(formatString: "MMMM D, YYYY")
+//       title
+//     }
+//     id
+//     excerpt(truncate: true)
+//     slug
+//   }
+// `;
+
 const BlogPage = () => {
   const classes = useStyles();
 
-  // TODO generate types from queries
-  // Please note that you can use https://github.com/dotansimha/graphql-code-generator
-  // to generate all types from graphQL schema
-  const data = useStaticQuery<{
-    allMdx: {
-      nodes: {
-        frontmatter: { date: string; title: string };
-        id: string;
-        excerpt: string;
-        slug: string;
-      }[];
-    };
-  }>(graphql`
+  const data = useStaticQuery<GetAllArticlesQuery>(graphql`
+    # fragment MyMdx on Mdx {
+    #   frontmatter {
+    #     date(formatString: "MMMM D, YYYY")
+    #     title
+    #   }
+    #   id
+    #   excerpt(truncate: true)
+    #   slug
+    # }
     query getAllArticles {
       allMdx(sort: { fields: frontmatter___date, order: DESC }) {
         nodes {
+          # ...MyMdx
           frontmatter {
             date(formatString: "MMMM D, YYYY")
             title

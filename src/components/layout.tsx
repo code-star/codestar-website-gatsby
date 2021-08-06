@@ -18,8 +18,10 @@ const sections: Section[] = [
 const Layout = ({ children }) => {
   const data = useStaticQuery<{
     site: { siteMetadata: { title: string } };
-  }>(graphql`
-    query getSite {
+  }>(
+    // Note: making this query named (e.g. `query getSite (`), breaks the develop build
+    graphql`
+    query {
       site {
         siteMetadata {
           title
