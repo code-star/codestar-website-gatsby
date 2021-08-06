@@ -35,8 +35,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// TODO add strict typechecking
-const MainFeaturedPost: FC<{ post: any }> = ({ post }) => {
+interface Props {
+  post: {
+    image: string;
+    imageText: string;
+    title: string;
+    excerpt: string;
+    slug: string;
+    linkText: string;
+  }
+}
+
+const MainFeaturedPost: FC<Props> = ({ post }) => {
   const classes = useStyles();
 
   return (

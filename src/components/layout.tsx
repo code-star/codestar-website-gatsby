@@ -1,10 +1,6 @@
 import * as React from "react";
 import { useStaticQuery, graphql } from "gatsby";
-import {
-  Container,
-  CssBaseline,
-  ThemeProvider,
-} from "@material-ui/core";
+import { Container, CssBaseline, ThemeProvider } from "@material-ui/core";
 import theme from "../theme";
 import Header from "./molecules/Header/Header";
 
@@ -12,17 +8,19 @@ const sections = [
   { title: "Home", url: "/" },
   { title: "Blog", url: "/blog" },
   { title: "About", url: "/about" },
-  { title: "Business", url: "#" },
-  { title: "Politics", url: "#" },
-  { title: "Opinion", url: "#" },
-  { title: "Science", url: "#" },
-  { title: "Health", url: "#" },
-  { title: "Style", url: "#" },
-  { title: "Travel", url: "#" },
+  { title: "Learning", url: "#" },
+  { title: "Events", url: "#" },
+  { title: "Contact", url: "#" },
+  // { title: "Science", url: "#" },
+  // { title: "Health", url: "#" },
+  // { title: "Style", url: "#" },
+  // { title: "Travel", url: "#" },
 ];
 
 const Layout = ({ pageTitle, children }) => {
-  const data = useStaticQuery(graphql`
+  const data = useStaticQuery<{
+    site: { siteMetadata: { title: string } };
+  }>(graphql`
     query {
       site {
         siteMetadata {
@@ -40,7 +38,6 @@ const Layout = ({ pageTitle, children }) => {
         <CssBaseline />
         <Container maxWidth="lg">
           <Header title={title} sections={sections} />
-
           {children}
         </Container>
         {/* TODO Get footer from https://github.com/mui-org/material-ui/blob/master/docs/src/pages/getting-started/templates/blog/Blog.js */}

@@ -6,7 +6,15 @@ import Layout from "../../components/layout";
 import { graphql } from "gatsby";
 
 interface Props {
-  data: any;
+  data: {
+    mdx: {
+      frontmatter: {
+        title: string;
+        date: string;
+      },
+      body: string;
+    }
+  };
 }
 
 const BlogPost: FC<Props> = ({ data }) => {
