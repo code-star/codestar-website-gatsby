@@ -44,7 +44,7 @@ const FeaturedPost: FC<FeaturedPostProps> = ({ post }) => {
                 {post.date}
               </Typography>
               <Typography variant="subtitle1" paragraph>
-                {post.description}
+                {post.excerpt}
               </Typography>
               <Typography variant="subtitle1" color="primary">
                 {post.linkText}
