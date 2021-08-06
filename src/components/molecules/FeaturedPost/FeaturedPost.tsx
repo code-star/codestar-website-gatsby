@@ -1,17 +1,20 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Hidden from '@material-ui/core/Hidden';
+import React, { FC } from "react";
+import {
+  makeStyles,
+  Typography,
+  Grid,
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  Hidden,
+} from "@material-ui/core";
+import { Link as GatsbyLink } from "gatsby";
+import Post from "../../../types/post";
 
 const useStyles = makeStyles({
   card: {
-    display: 'flex',
+    display: "flex",
   },
   cardDetails: {
     flex: 1,
@@ -21,13 +24,16 @@ const useStyles = makeStyles({
   },
 });
 
-export default function FeaturedPost(props) {
+interface Props {
+  post: Post;
+}
+
+const FeaturedPost: FC<Props> = ({ post }) => {
   const classes = useStyles();
-  const { post } = props;
 
   return (
     <Grid item xs={12} md={6}>
-      <CardActionArea component="a" href="#">
+      <CardActionArea component={GatsbyLink} to={`/blog/${post.slug}`}>
         <Card className={classes.card}>
           <div className={classes.cardDetails}>
             <CardContent>
@@ -41,19 +47,21 @@ export default function FeaturedPost(props) {
                 {post.description}
               </Typography>
               <Typography variant="subtitle1" color="primary">
-                Continue reading...
+                {post.linkText}
               </Typography>
             </CardContent>
           </div>
           <Hidden xsDown>
-            <CardMedia className={classes.cardMedia} image={post.image} title={post.imageTitle} />
+            <CardMedia
+              className={classes.cardMedia}
+              image={post.image}
+              title={post.imageText}
+            />
           </Hidden>
         </Card>
       </CardActionArea>
     </Grid>
   );
-}
-
-FeaturedPost.propTypes = {
-  post: PropTypes.object,
 };
+
+export default FeaturedPost;
