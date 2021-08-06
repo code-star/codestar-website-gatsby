@@ -3,14 +3,15 @@ import { useStaticQuery, graphql } from "gatsby";
 import { Container, CssBaseline, ThemeProvider } from "@material-ui/core";
 import theme from "../theme";
 import Header from "./molecules/Header/Header";
+import Section from "../types/section";
 
-const sections = [
+const sections: Section[] = [
   { title: "Home", url: "/" },
   { title: "Blog", url: "/blog" },
   { title: "About", url: "/about" },
-  { title: "Learning", url: "#" },
-  { title: "Events", url: "#" },
-  { title: "Contact", url: "#" },
+  { title: "Learning", url: "/learning" },
+  { title: "Events", url: "/events" },
+  { title: "Contact", url: "https://www.ordina.nl/vakgebieden/scala/" },
 ];
 
 const Layout = ({ children }) => {

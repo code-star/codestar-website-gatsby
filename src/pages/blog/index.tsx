@@ -11,8 +11,6 @@ import {
 import MainFeaturedPost from "../../components/molecules/MainFeaturedPost/MainFeaturedPost";
 import FeaturedPost from "../../components/molecules/FeaturedPost/FeaturedPost";
 
-// Example: https://github.com/hupe1980/gatsby-theme-material-ui/blob/master/packages/gatsby-theme-material-ui-top-layout/src/wrap-with-provider.js
-// TODO add wrap-with-provider (also see gatsby-browser.js), add helmet
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
     marginTop: theme.spacing(3),
@@ -30,6 +28,8 @@ const BlogPage = () => {
   const classes = useStyles();
 
   // TODO generate types from queries
+  // Please note that you can use https://github.com/dotansimha/graphql-code-generator
+  // to generate all types from graphQL schema
   const data = useStaticQuery<{
     allMdx: {
       nodes: {
