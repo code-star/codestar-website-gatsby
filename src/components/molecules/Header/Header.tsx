@@ -3,6 +3,7 @@ import { Toolbar, Typography, Link, AppBar } from "@material-ui/core";
 import useStyles from "./Header.styles";
 import Section from "../../../types/section";
 import { StaticImage } from "gatsby-plugin-image";
+import MainMenu from "../../organisms/MainMenu/MainMenu";
 
 // TODO add storybook
 
@@ -31,43 +32,8 @@ const Header: FC<HeaderProps> = ({ sections, title }) => {
             src="../../../images/codestar_logo_dark.svg"
           />
         </Typography>
-        {/* <IconButton>
-          <SearchIcon />
-        </IconButton>
-        <Button variant="outlined" size="small">
-          Sign up
-        </Button> */}
-        {sections.map((section) => (
-          <Link
-            color="inherit"
-            noWrap
-            key={section.title}
-            variant="body2"
-            href={section.url}
-            className={classes.toolbarLink}
-          >
-            {section.title}
-          </Link>
-        ))}
+        <MainMenu sections={sections}></MainMenu>
       </Toolbar>
-      {/* <Toolbar
-        component="nav"
-        variant="dense"
-        className={classes.toolbarSecondary}
-      >
-        {sections.map((section) => (
-          <Link
-            color="inherit"
-            noWrap
-            key={section.title}
-            variant="body2"
-            href={section.url}
-            className={classes.toolbarLink}
-          >
-            {section.title}
-          </Link>
-        ))}
-      </Toolbar> */}
     </AppBar>
   );
 };
