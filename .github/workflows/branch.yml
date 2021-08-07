@@ -1,4 +1,4 @@
-name: Validate build
+name: Validate branch
 
 on: [push, pull_request]
 
@@ -23,8 +23,8 @@ jobs:
           yarn install --frozen-lockfile
       - name: Validate ☑️
         run: yarn tsc
-        env:
-          CI: false # true -> fails on warning
+        # env:
+        #  CI: false # true -> fails on warning
       - name: Build 📚
         run: yarn gatsby build --prefix-paths
       - name: test condition # TODO if this works, only one workflow yml is needed
