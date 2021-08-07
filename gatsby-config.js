@@ -1,4 +1,5 @@
 module.exports = {
+  pathPrefix: `/codestar-website-gatsby`,
   siteMetadata: {
     siteUrl: `https://code-star.github.io`,
     title: "Codestar",

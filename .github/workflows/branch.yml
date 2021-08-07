@@ -1,9 +1,6 @@
-name: Build site and deploy to Github Pages
+name: Validate branch
 
-on:
-  push:
-    branches:
-      - main
+on: [push, pull_request]
 
 jobs:
   build:
@@ -26,14 +23,10 @@ jobs:
           yarn install --frozen-lockfile
       - name: Validate ☑️
         run: yarn tsc
-        env:
-          CI: false # true -> fails on warning
+        # env:
+        #  CI: false # true -> fails on warning
       - name: Build 📚
         run: yarn gatsby build --prefix-paths
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@3.7.1
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages # The branch the action should deploy to.
-          FOLDER: public # The folder the action should deploy.
-          CLEAN: true # Automatically remove deleted files from the deploy branch
+      - name: test condition # TODO if this works, only one workflow yml is needed
+        run: echo Only run on main branch
+        if: ${{ github.ref == 'refs/heads/main' }}
