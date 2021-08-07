@@ -27,3 +27,6 @@ jobs:
          CI: false # true -> fails on warning
       - name: Build 📚
         run: yarn gatsby build --prefix-paths
+      - name: test condition # TODO if this works, only one workflow yml is needed
+        run: echo Only run on main branch
+        if: ${{ github.ref == 'refs/heads/main' }}
