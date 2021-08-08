@@ -3,6 +3,7 @@ import { Toolbar, Typography, Link, AppBar } from "@material-ui/core";
 import useStyles from "./Header.styles";
 import Section from "../../../types/section";
 import { StaticImage } from "gatsby-plugin-image";
+import { Link as GatsbyLink } from "gatsby";
 
 // TODO add storybook
 
@@ -37,18 +38,32 @@ const Header: FC<HeaderProps> = ({ sections, title }) => {
         <Button variant="outlined" size="small">
           Sign up
         </Button> */}
-        {sections.map((section) => (
-          <Link
-            color="inherit"
-            noWrap
-            key={section.title}
-            variant="body2"
-            href={section.url}
-            className={classes.toolbarLink}
-          >
-            {section.title}
-          </Link>
-        ))}
+        {sections.map((section) =>
+          section.url.indexOf("/") === 0 ? (
+            <Link
+              component={GatsbyLink}
+              color="inherit"
+              noWrap
+              key={section.title}
+              variant="body2"
+              to={section.url}
+              className={classes.toolbarLink}
+            >
+              {section.title}
+            </Link>
+          ) : (
+            <Link
+              color="inherit"
+              noWrap
+              key={section.title}
+              variant="body2"
+              href={section.url}
+              className={classes.toolbarLink}
+            >
+              {section.title}
+            </Link>
+          )
+        )}
       </Toolbar>
       {/* <Toolbar
         component="nav"
