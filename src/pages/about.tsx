@@ -3,10 +3,10 @@ import * as React from "react";
 const AboutPage = () => {
   return (
     <main>
-      <title>About Me</title>
-      <h1>About Me</h1>
+      <title>About Us</title>
+      <h1>About Us</h1>
       <p>
-        Hi there! I'm the proud creator of this site, which I built with Gatsby.
+        We are Codestar
       </p>
     </main>
   );
