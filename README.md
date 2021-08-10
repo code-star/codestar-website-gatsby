@@ -77,19 +77,19 @@ Requires VSCode with the Remote Containers extension. On opening, VSCode should 
 
 Start develop server with F5 (shortcut to Ctrl+Shift+P + Debug: Start Debugging), Ctrl+F5 or just `yarn develop` in a terminal
 
-
 ## Docker build
 
-- docker build -t code-star/codestar-gatsby .
-- docker run --rm -it -p 3000:80 code-star/codestar-gatsby
+- docker build -t ghcr.io/code-star/codestar-gatsby .
+- docker run --rm -it -p 3000:80 ghcr.io/code-star/codestar-gatsby
+- docker login ghcr.io -u USERNAME (and paste in PAT: settings/ Developer Settings / Personall access tokens)
 - docker push ghcr.io/code-star/codestar-gatsby:latest
 
 TODO: 
-- Deploy to ghrc.io? https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry#pushing-container-images
 - Alpine image (fails because of missing deps: mozjpeg pre-build test failed
   ℹ compiling from source
   ✖ Error: Command failed: /bin/sh -c autoreconf -fiv
 /bin/sh: autoreconf: not found)
-- multi stage build https://btholt.github.io/complete-intro-to-containers/multi-stage-builds
 - fix step: RUN yarn gatsby build
 - don't copy node_modules in COPY --chown=node:node . .
+- set up Github Action to push to registry automatically
+

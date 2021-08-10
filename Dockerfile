@@ -1,4 +1,8 @@
+# Stage 1
+
 FROM node:16-buster AS build-env
+
+LABEL org.opencontainers.image.source https://github.com/code-star/codestar-website-gatsby
 
 USER node
 
