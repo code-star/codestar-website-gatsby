@@ -52,3 +52,34 @@
 Deploy this starter with one click on [Gatsby Cloud](https://www.gatsbyjs.com/cloud/):
 
 [<img src="https://www.gatsbyjs.com/deploynow.svg" alt="Deploy to Gatsby Cloud">](https://www.gatsbyjs.com/dashboard/deploynow?url=https://github.com/gatsbyjs/gatsby-starter-minimal)
+
+## 🚀 Quick start (local Docker)
+
+Advantage of running with local Docker:
+
+- It is not required to install npm, node or yarn locally
+- The docker run command documents which Node version should be used
+
+Setup:
+docker run --rm -it -v $PWD:/usr/src/app -p 3000:3000 node:16.6.1-alpine3.14 sh -c "cd /usr/src/app" && yarn
+
+Run: 
+docker run --rm -it -v $PWD:/usr/src/app -p 3000:3000 node:16.6.1-alpine3.14 sh -c "cd /usr/src/app" && yarn gatsby develop --port=3000
+
+Can be stopped with ctrl+C
+
+// if you run cd directly (without sh -c): cd is not found: https://stackoverflow.com/questions/28037802/docker-exec-failed-cd-executable-file-not-found-in-path
+// --init?? : docker run --rm -it -v $PWD:/usr/src/app -p 3000:3000 node:16.6.1-alpine3.14 yarn gatsby develop --port=3000
+
+## 🚀 Quick start (.devcontainer)
+
+Requires VSCode with the Remote Containers extension. On opening, VSCode should ask to "reopen in container". If not, reload window.
+
+Start develop server with F5 (shortcut to Ctrl+Shift+P + Debug: Start Debugging), Ctrl+F5 or just `yarn develop` in a terminal
+
+
+
+
+TODO
+
+- Deploy to ghrc.io?
