@@ -1,4 +1,4 @@
-FROM node:16-alpine
+FROM node:16-buster AS build-env
 
 USER node
 
@@ -12,4 +12,12 @@ RUN yarn --frozen-lockfile
 
 COPY --chown=node:node . .
 
-CMD ["node", "index.js"]
+# RUN yarn gatsby build
+
+# Stage 2
+
+FROM nginx
+
+COPY --from=build-env /home/node/src/public/ /usr/share/nginx/html
+
+# CMD ["yarn", "gatsby", "build"]
