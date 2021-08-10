@@ -78,8 +78,10 @@ Requires VSCode with the Remote Containers extension. On opening, VSCode should 
 Start develop server with F5 (shortcut to Ctrl+Shift+P + Debug: Start Debugging), Ctrl+F5 or just `yarn develop` in a terminal
 
 
+## Docker build
 
+- docker build -t codestar-gatsby .
 
-TODO
-
+TODO: 
 - Deploy to ghrc.io?
+- multi stage build
