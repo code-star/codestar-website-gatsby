@@ -24,6 +24,7 @@
     "gatsby-plugin-react-helmet": "^5.15.0",
     "gatsby-plugin-sass": "^5.15.1",
     "gatsby-source-filesystem": "^4.15.0",
+    "gatsby-source-rss-feed": "^1.2.2",
     "gatsby-theme-blog": "^4.0.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
