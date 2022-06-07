@@ -2,23 +2,31 @@ import React, { FC } from "react";
 import { graphql, PageProps } from "gatsby";
 import Posts from "gatsby-theme-blog/src/components/Posts";
 
-const TestFeedPage: FC<PageProps<Queries.TestFeedPageQuery>> = ({
+const BlogPage: FC<PageProps<Queries.BlogPageQuery>> = ({
   data,
   location,
 }) => {
   console.log(data);
-  const x = data.allFeedGatsbyBlog.edges.map((e) => (
-    <div key={e.node.id}>{e.node.title}</div>
-  ));
-  const { site, allBlogPost } = data;
+  // const x = data.allFeedGatsbyBlog.edges.map((e) => (
+  //   <div key={e.node.id}>{e.node.title}</div>
+  // ));
+  const { site, allBlogPost, allFeedGatsbyBlog } = data;
+  const bla: typeof allBlogPost.nodes = allFeedGatsbyBlog.nodes.map((p) => ({
+    id: p.id!,
+    title: p.title!,
+    excerpt: p.contentSnippet ?? '',
+    slug: p.link ?? '',
+    date: p.pubDate!,
+    tags: p.categories!,
+  }));
+  const combinedPosts = [...allBlogPost.nodes, ...bla];
   return (
     <div>
       {" "}
-      {x}
       <main>
         <Posts
           location={location}
-          posts={allBlogPost.nodes}
+          posts={combinedPosts}
           siteTitle={site?.siteMetadata?.title}
           socialLinks={site?.siteMetadata?.social}
         />
@@ -40,13 +48,15 @@ const TestFeedPage: FC<PageProps<Queries.TestFeedPageQuery>> = ({
 
 // http://localhost:8000/___graphql
 export const query = graphql`
-  query TestFeedPage {
+  query BlogPage {
     allFeedGatsbyBlog {
-      edges {
-        node {
-          id
-          title
-        }
+      nodes {
+        title
+        pubDate
+        link
+        contentSnippet
+        categories
+        id
       }
     }
 
@@ -111,4 +121,5 @@ export const query = graphql`
 //   }
 // `;
 
-export default TestFeedPage;
+export default BlogPage;
+
