@@ -1,8 +1,43 @@
-
 .main {
   border: 10px solid green;
-//   color: #232129;
+  //   color: #232129;
   color: white;
   padding: 96px;
   font-family: "-apple-system, Roboto, sans-serif, serif";
+}
+
+.mainLine {
+  color: white;
+}
+.otherLines {
+  color: #818d9c;
+}
+.container {
+  display: flex;
+  height: 100vh;
+  text-align: center;
+  overflow-y: hidden;
+  align-items: center;
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(0, 0, 0, 1) 40%,
+    rgba(0, 0, 0, 1) 60%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+  // padding-top: 48px;
+  // [theme.breakpoints.up('md')]: {
+  //   paddingTop: '64px',
+  // },
+  padding-top: 64px;
+}
+.hexViewer {
+  flex: 1;
+}
+.hexLine {
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+  font-size: 14px;
+  line-height: 18px;
+  overflow: visible;
 }
