@@ -1,13 +1,5 @@
-import { Link } from "gatsby";
-import * as classes from "./404.module.scss";
-
 import React, { FC } from "react";
-// import compose from "recompose/compose";
-
-// import { withStyles } from "@material-ui/core/styles";
-// import { withWidth } from "@material-ui/core";
-
-// import Container from "../Container/Container";
+import * as classes from "./404.module.scss";
 
 const data = `
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur maximus mi id orci luctus, scelerisque ornare velit condimentum. Integer fermentum nisi in erat consequat pulvinar. Suspendisse dignissim, dolor nec laoreet porttitor, est ligula scelerisque massa, a eleifend justo turpis ac est. Aenean varius ipsum vitae leo vestibulum, sed fringilla nisi feugiat. Cras imperdiet finibus justo, ac consectetur eros. Pellentesque sapien augue, tincidunt at odio nec, tincidunt blandit erat. Donec at ligula vitae nisi sodales ornare. Donec vel eros vitae elit condimentum lobortis et pretium ante. Nullam tincidunt elementum mauris vitae lacinia. Curabitur bibendum turpis quis eros semper, vitae consectetur arcu commodo. Sed suscipit dui nulla, in porttitor tellus rutrum laoreet. Phasellus arcu tortor, laoreet eget orci eget, interdum varius dolor. Etiam viverra metus magna, quis dictum eros varius eu.
@@ -20,6 +12,7 @@ Duis rhoncus ornare arcu, et feugiat nunc blandit in. Cras sit amet euismod elit
 const notFoundTexts = "Code 404\nPage not found".split("\n");
 
 const offset = 0x1337;
+
 const lengths = {
   xs: 8,
   sm: 16,
@@ -32,34 +25,6 @@ function toHex(n: number, padding: number) {
   const hex = n.toString(16);
   return "0".repeat(padding - hex.length) + hex;
 }
-
-// const styles = theme => ({
-//   mainLine: { color: 'white' },
-//   otherLines: { color: '#818d9c' },
-//   container: {
-//     display: 'flex',
-//     height: '100vh',
-//     textAlign: 'center',
-//     overflowY: 'hidden',
-//     alignItems: 'center',
-//     maskImage:
-//       'linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0.2) 100%)',
-//     paddingTop: '48px',
-//     [theme.breakpoints.up('md')]: {
-//       paddingTop: '64px',
-//     },
-//   },
-//   hexViewer: {
-//     flex: 1,
-//   },
-//   hexLine: {
-//     fontFamily:
-//       'SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace',
-//     fontSize: '14px',
-//     lineHeight: '18px',
-//     overflow: 'visible',
-//   },
-// });
 
 const hexEditorify = (
   text: string,
@@ -99,24 +64,13 @@ const textTop = data.substring(
   0,
   data.length / 2 + length - ((data.length / 2) % length)
 );
+
 const textBottom = data.substring(data.length / 2);
 
-// const textTop = "textTop";
-// const textBottom = "textBottom";
-// const notFoundTextOffsets: number[] = [];
-// const notFoundTextOffset = 0;
 const notFoundTextOffsets = notFoundTexts.map(
   (text) => text.length + (length - (text.length % length))
 );
 const notFoundTextOffset = notFoundTextOffsets.reduce((a, b) => a + b);
-
-// const classes = {
-//   container: "container",
-//   hexViewer: "hexviewer",
-//   otherLines: "ol",
-//   mainLine: "ml",
-//   hexLine: 'hx',
-// };
 
 const hexEditorCodeTop = hexEditorify(
   textTop,
@@ -138,26 +92,7 @@ const hexEditorCodeBottom = hexEditorify(
   classes.otherLines
 );
 
-interface Props {
-  width: keyof typeof lengths;
-}
-
-const NotFoundPage: FC<Props> = ({ width }) => {
-  // const { classes, width } = this.props;
-
-  // const length = lengths[width];
-
-  // const textTop = data.substring(
-  //   0,
-  //   data.length / 2 + length - ((data.length / 2) % length)
-  // );
-  // const textBottom = data.substring(data.length / 2);
-
-  // const notFoundTextOffsets = notFoundTexts.map(
-  //   (text) => text.length + (length - (text.length % length))
-  // );
-  // const notFoundTextOffset = notFoundTextOffsets.reduce((a, b) => a + b);
-
+const NotFoundPage: FC = () => {
   return (
     <div className={classes.container}>
       <div className={classes.hexViewer}>
@@ -168,6 +103,5 @@ const NotFoundPage: FC<Props> = ({ width }) => {
     </div>
   );
 };
-
 
 export default NotFoundPage;
