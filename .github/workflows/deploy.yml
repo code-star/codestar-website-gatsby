@@ -26,7 +26,7 @@ jobs:
         #   # env:
         #   #  CI: false # true -> fails on warning
       - name: Build 📚
-        run: npm run gatsby build --prefix-paths
+        run: npx gatsby build --prefix-paths
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.7.1
         # if: ${{ github.ref == 'refs/heads/main' }}
