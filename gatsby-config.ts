@@ -30,6 +30,8 @@ const config: GatsbyConfig = {
     {
       resolve: `gatsby-theme-blog`,
       options: {
+        // basePath defaults to `/`
+        basePath: `/blog`,
         // Used for social links in the root footer
         social: [
           {
@@ -55,8 +57,8 @@ const config: GatsbyConfig = {
         //     item: ['itunes:duration']
         //   }
         // }
-      }
-    }
+      },
+    },
   ],
 };
 
